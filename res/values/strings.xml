@@ -4,5 +4,9 @@
     <string name="app_name">PingPongApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string-array name="players">
+        <item >1 Player</item>
+        <item >2 Player</item>
+    </string-array>
 
 </resources>
