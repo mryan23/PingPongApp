@@ -22,12 +22,11 @@ public class MainActivity extends Activity {//implements SensorListener {
 	float vel = 0;
 	long t = 0;
 	long prevt = 0;
-	float lastX = 0;
-	float lastY = 0;
-	String gameID = "3195";
+	String gameID = "7746";
 	String message = "";
 	DatagramSocket s;
 	InetAddress i;
+	UDPThread udp;
 	
 
 	@Override
@@ -35,14 +34,10 @@ public class MainActivity extends Activity {//implements SensorListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-		try {
-			s = new DatagramSocket(6789);
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		udp = new UDPThread(gameID, "2");
+		udp.execute();
 		final View touchView = findViewById(R.id.view1);
+		touchView.setKeepScreenOn(true);
 		final TextView text = (TextView) findViewById(R.id.view1);
 	    touchView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -52,20 +47,8 @@ public class MainActivity extends Activity {//implements SensorListener {
 	            int action = event.getAction();
 	            int midY = text.getHeight()/2;
 	            int midX = text.getWidth()/2;
-	            message = gameID + " 1 " +  Float.toString(event.getX() - midX) + " " + Float.toString(-event.getY() + midY);
-	            try {
-					i = InetAddress.getByName("24.219.213.60");
-				} catch (UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	            DatagramPacket p = new DatagramPacket(message.getBytes(), message.length(), i, 6789);
-	            try {
-					s.send(p);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	            message = gameID + " 2 " +  Float.toString(event.getX() - midX) + " " + Float.toString(-event.getY() + midY);
+	            udp.setParams(event.getX() - midX, -event.getY() + midY);
 	            text.setText("Sent: " + message);
 	            return true;
 	    	}
@@ -124,6 +107,13 @@ public class MainActivity extends Activity {//implements SensorListener {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public void onStop()
+	{
+		udp.cancel(true);
+		super.onStop();
 	}
 
 }
