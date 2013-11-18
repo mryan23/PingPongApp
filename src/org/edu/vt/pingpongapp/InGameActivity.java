@@ -1,26 +1,55 @@
 package org.edu.vt.pingpongapp;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
 import android.app.Activity;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 public class InGameActivity extends Activity {
 	
-	private TextView player1Name_;
-	private TextView player2Name_;
-	private TextView player1Score_;
-	private TextView player2Score_;
+	SensorManager touchManager_;
+    String gameID_ = "";
+    String message_ = "";
+    DatagramSocket socket_;
+    InetAddress iAddress_;
+    UDPThread udp_;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_in_game);
+
+		gameID_ = getIntent().getStringExtra("gameID");
 		
-		player1Name_ = (TextView) findViewById(R.id.player1Text);
-		player2Name_ = (TextView) findViewById(R.id.player2Text);
-		player1Score_ = (TextView) findViewById(R.id.player1Score);
-		player2Score_ = (TextView) findViewById(R.id.player2Score);
+		touchManager_ = (SensorManager) getSystemService(SENSOR_SERVICE);
+		
+		udp_ = new UDPThread(gameID_, "2");
+		udp_.execute();
+		
+        final View touchView = findViewById(R.id.touchText);
+        touchView.setKeepScreenOn(true);
+        final TextView text = (TextView) findViewById(R.id.touchText);
+        touchView.setOnTouchListener(new View.OnTouchListener() {
+
+        	@Override
+        	public boolean onTouch(View v, MotionEvent event) {
+                 System.out.println("Testing");
+                 int action = event.getAction();
+                 int midY = text.getHeight()/2;
+                 int midX = text.getWidth()/2;
+                 message_ = gameID_ + " 2 " + Float.toString(event.getX() - midX) + " " + Float.toString(-event.getY() + midY);
+                 udp_.setParams(event.getX() - midX, -event.getY() + midY);
+                 text.setText("Sent: " + message_);
+                 return true;
+        	}
+        });
+
 	}
 
 	@Override
@@ -29,4 +58,11 @@ public class InGameActivity extends Activity {
 		getMenuInflater().inflate(R.menu.log_in, menu);
 		return true;
 	}
+	
+	 @Override
+     public void onStop()
+     {
+             udp_.cancel(true);
+             super.onStop();
+     }
 }

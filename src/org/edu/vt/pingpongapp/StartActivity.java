@@ -49,7 +49,9 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 					Toast.makeText(getApplicationContext(), "Invalid Game ID", Toast.LENGTH_LONG).show();
 				}
 				else {
-					startActivity(new Intent(getApplicationContext(), InGameActivity.class));	
+					Intent startGame = new Intent(getApplicationContext(), InGameActivity.class);
+					startGame.putExtra("gameID", id);
+					startActivity(startGame);	
 				}
 			}
         });
