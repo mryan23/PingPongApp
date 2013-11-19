@@ -16,6 +16,7 @@ public class InGameActivity extends Activity {
 	SensorManager touchManager_;
     String gameID_ = "";
     String message_ = "";
+    int playerNum = 1;
     DatagramSocket socket_;
     InetAddress iAddress_;
     UDPThread udp_;
@@ -26,6 +27,7 @@ public class InGameActivity extends Activity {
 		setContentView(R.layout.activity_in_game);
 
 		gameID_ = getIntent().getStringExtra("gameID");
+		playerNum = getIntent().getIntExtra("playerNum", 1);
 		
 		touchManager_ = (SensorManager) getSystemService(SENSOR_SERVICE);
 		

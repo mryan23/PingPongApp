@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class StartActivity extends Activity implements OnItemSelectedListener {
 	
 	private Spinner playerSpinner_;
-	private int numPlayers_ = 1;
+	private int player_ = 1;
 	private Button startButton_;
 	private EditText gameId_;
 
@@ -51,6 +51,7 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 				else {
 					Intent startGame = new Intent(getApplicationContext(), InGameActivity.class);
 					startGame.putExtra("gameID", id);
+					startGame.putExtra("playerNum", player_);
 					startActivity(startGame);	
 				}
 			}
@@ -69,17 +70,17 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 			long arg3) {
 		String answerString = (String) arg0.getItemAtPosition(arg2);
 		if (answerString == "1 Player") {
-			numPlayers_ = 1;
+			player_ = 1;
 		}
 		else if (answerString == "2 Player") {
-			numPlayers_ = 2;
+			player_ = 2;
 		}
 		
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		numPlayers_ = 1;
+		player_ = 1;
 	}
 	
 }
