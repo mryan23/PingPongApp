@@ -43,8 +43,10 @@ public class InGameActivity extends Activity {
                  int action = event.getAction();
                  int midY = text.getHeight()/2;
                  int midX = text.getWidth()/2;
+                 int xdivide = text.getWidth()/70;
+                 int ydivide = text.getHeight()/60;
                  message_ = gameID_ + " 2 " + Float.toString(event.getX() - midX) + " " + Float.toString(-event.getY() + midY);
-                 udp_.setParams(event.getX() - midX, -event.getY() + midY);
+                 udp_.setParams((event.getX() - midX)/xdivide, (-event.getY() + midY)/ydivide);
                  text.setText("Sent: " + message_);
                  return true;
         	}

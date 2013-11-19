@@ -24,6 +24,16 @@ public class UDPThread extends AsyncTask<Void, Void, Void> {
 	public UDPThread(String id, String pnum) {
 		gameID = id;
 		player = pnum;
+		
+	}
+
+	public void setParams(float x, float y) {
+		curX = x;
+		curY = y;
+	}
+
+	@Override
+	protected Void doInBackground(Void... arg0) {
 		try {
 			s = new DatagramSocket(6789);
 		} catch (SocketException e) {
@@ -35,15 +45,6 @@ public class UDPThread extends AsyncTask<Void, Void, Void> {
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
 		}
-	}
-
-	public void setParams(float x, float y) {
-		curX = x;
-		curY = y;
-	}
-
-	@Override
-	protected Void doInBackground(Void... arg0) {
 		while (true) {
 			if (this.isCancelled()) {
 				break;
