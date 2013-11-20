@@ -31,7 +31,7 @@ public class InGameActivity extends Activity {
 		
 		touchManager_ = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
-		udp_ = new UDPThread(gameID_, "2");
+		udp_ = new UDPThread(gameID_, ""+playerNum);
 		udp_.execute();
 		
         final View touchView = findViewById(R.id.touchText);

@@ -68,13 +68,14 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		String answerString = (String) arg0.getItemAtPosition(arg2);
+		/*String answerString = (String) arg0.getItemAtPosition(arg2);
 		if (answerString == "1 Player") {
 			player_ = 1;
 		}
 		else if (answerString == "2 Player") {
 			player_ = 2;
-		}
+		}*/
+		player_=arg2+1;
 		
 	}
 
