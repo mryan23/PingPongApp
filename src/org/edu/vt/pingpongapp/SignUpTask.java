@@ -10,12 +10,15 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.google.gson.Gson;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
 public class SignUpTask extends AsyncTask<String, Void, String> {
 	
 	LogInActivity myActivity_;
+	static Gson gson = new Gson();
 	
 	public SignUpTask(LogInActivity newActivity) {
 		myActivity_ = newActivity;
@@ -58,25 +61,21 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
                 Log.i("ERROR", e.toString());
         }
         
-        //Get response
         String httpResponseVal = sb.toString();
-        
-        String[] responseTokens = httpResponseVal.split("><");
-        String result = null;
-        
-        //Find result and reason in response
-        for (int i = 0; i < responseTokens.length; i++) {
-                if (responseTokens[i].contains("result")) {
-                        result = responseTokens[i].substring(7, responseTokens[i].length() - 8);
-                }
-        }
+        Response resp = gson.fromJson(httpResponseVal, Response.class);
         
         //Return the result back to the GUI
-        return result;
+        return resp.result;
 	}
 	
 	protected void onPostExecute(String incomingString) {
         myActivity_.update(incomingString);
+	}
+	
+	private class Response {
+		public String username = null;
+		public String password = null;
+		public String result = null;
 	}
 
 }
