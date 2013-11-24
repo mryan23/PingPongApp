@@ -16,6 +16,8 @@ public class LogInActivity extends Activity {
 	private EditText password_;
 	private Button loginButton_;
 	private Button signupButton_;
+	
+	private String user_;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,18 @@ public class LogInActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				String params = username_.getText().toString() + " " + password_.getText().toString();
-                
-                final LogInTask logIn = new LogInTask(LogInActivity.this);
-                
-                logIn.execute(params);
+				
+				user_ = username_.getText().toString();
+				String password = password_.getText().toString();
+				
+				if (user_ == "" || password == "") {
+					Toast.makeText(getApplicationContext(), "Invalid Length Username/Password", Toast.LENGTH_LONG).show();
+				}
+				else {
+					String params = user_ + " " + password;
+                	final LogInTask logIn = new LogInTask(LogInActivity.this);
+                	logIn.execute(params);
+				}
 			}
 			
 		});
@@ -44,11 +53,18 @@ public class LogInActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				String params = username_.getText().toString() + " " + password_.getText().toString();
-                
-                final SignUpTask signUp = new SignUpTask(LogInActivity.this);
-                
-                signUp.execute(params);
+				
+				user_ = username_.getText().toString();
+				String password = password_.getText().toString();
+				
+				if (user_ == "" || password == "") {
+					Toast.makeText(getApplicationContext(), "Invalid Length Username/Password", Toast.LENGTH_LONG).show();
+				}
+				else {
+					String params = user_ + " " + password; 
+                	final SignUpTask signUp = new SignUpTask(LogInActivity.this);
+                	signUp.execute(params);
+				}
 			}
 			
 		});
@@ -64,7 +80,9 @@ public class LogInActivity extends Activity {
 	 //See if login/sign-up was successful
     public void update(String result) {   
     	if (result.contains("Success")) {
-    		startActivity(new Intent(getApplicationContext(), StartActivity.class));
+    		Intent start = new Intent(getApplicationContext(), StartActivity.class);
+    		start.putExtra("username", user_);
+    		startActivity(start);
     		finish();
     	}
     	else {

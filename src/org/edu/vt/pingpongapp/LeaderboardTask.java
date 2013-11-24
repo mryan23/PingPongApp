@@ -30,7 +30,7 @@ public class LeaderboardTask extends AsyncTask<Void, Void, Vector<String>>{
 
 		// Set up URL
 		String URL = "http://ec2-184-72-139-63.compute-1.amazonaws.com:8080/leaderboard";
-
+		
 		// Send HTTP GET request
 		HttpResponse response = null;
 		try {

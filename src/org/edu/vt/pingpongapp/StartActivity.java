@@ -21,11 +21,14 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 	private Button startButton_;
 	private Button leadButton_;
 	private EditText gameId_;
+	private String user_ = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
+		
+		user_ = getIntent().getStringExtra("username");
 		
 		playerSpinner_ = (Spinner) findViewById(R.id.spinner1);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -52,6 +55,7 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 				else {
 					Intent startGame = new Intent(getApplicationContext(), InGameActivity.class);
 					startGame.putExtra("gameID", id);
+					startGame.putExtra("username", user_);
 					startGame.putExtra("playerNum", player_);
 					startActivity(startGame);	
 				}
@@ -79,13 +83,7 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		/*String answerString = (String) arg0.getItemAtPosition(arg2);
-		if (answerString == "1 Player") {
-			player_ = 1;
-		}
-		else if (answerString == "2 Player") {
-			player_ = 2;
-		}*/
+
 		player_=arg2+1;
 		
 	}
