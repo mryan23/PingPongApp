@@ -19,6 +19,7 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 	private Spinner playerSpinner_;
 	private int player_ = 1;
 	private Button startButton_;
+	private Button leadButton_;
 	private EditText gameId_;
 
 	@Override
@@ -54,6 +55,16 @@ public class StartActivity extends Activity implements OnItemSelectedListener {
 					startGame.putExtra("playerNum", player_);
 					startActivity(startGame);	
 				}
+			}
+        });
+        
+        leadButton_ = (Button) findViewById(R.id.leaderboardButton);
+        
+        leadButton_.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				startActivity(new Intent(getApplication(), Leaderboard.class));
 			}
         });
 	}

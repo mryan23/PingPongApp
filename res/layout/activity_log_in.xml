@@ -25,7 +25,8 @@
         android:layout_alignLeft="@+id/usernameText"
         android:layout_below="@+id/usernameText"
         android:layout_marginTop="32dp"
-        android:ems="10" />
+        android:ems="10" 
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/usernameText"
@@ -101,5 +102,6 @@
         android:layout_alignLeft="@+id/loginButton"
         android:layout_below="@+id/loginButton"
         android:text="Sign me up!" />
+
 
 </RelativeLayout>

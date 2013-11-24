@@ -7,7 +7,10 @@ import java.util.Vector;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class Leaderboard extends Activity{
@@ -15,6 +18,7 @@ public class Leaderboard extends Activity{
 	private ListView myScoreList_ = null;
 	private ArrayList<String> scores_;
 	private ArrayAdapter<String> adapter_;
+	private Button updateButton_;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,20 @@ public class Leaderboard extends Activity{
 		scores_ = new ArrayList<String>();
 		adapter_ = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scores_);
 		myScoreList_.setAdapter(adapter_);
+		
+		final LeaderboardTask board = new LeaderboardTask(Leaderboard.this);
+		board.execute();
+		
+		updateButton_ = (Button) findViewById(R.id.updateButton);
+		
+		updateButton_.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				final LeaderboardTask board = new LeaderboardTask(Leaderboard.this);
+				board.execute();
+			}	
+		});
 	}
 
 	@Override
