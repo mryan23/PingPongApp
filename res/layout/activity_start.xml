@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#009900" >
@@ -34,14 +33,6 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/gameIDText"
-        android:layout_centerVertical="true"
-        android:text="Start" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -54,12 +45,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gameIDText"
+        android:layout_below="@+id/gameIDText"
+        android:layout_marginTop="14dp"
+        android:text="Start" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <Button
         android:id="@+id/leaderboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView1"
         android:layout_alignLeft="@+id/startButton"
-        android:layout_below="@+id/startButton"
-        android:layout_marginTop="21dp"
+        android:layout_marginBottom="19dp"
         android:text="Leaderboard" />
 
 </RelativeLayout>
