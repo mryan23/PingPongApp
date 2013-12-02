@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -32,8 +34,28 @@ public class LogInTask extends AsyncTask<String, Void, String> {
         String username = nameTokens[0];
         String password = nameTokens[1];
         
+        String hashPassword = null;
+		
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+			md.update(password.getBytes());
+			 
+	        byte byteData[] = md.digest();
+	 
+	        //convert the byte to hex format
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < byteData.length; i++) {
+	        	sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	        
+	        hashPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+        
         //Set up URL
-        String URL = "http://ec2-184-72-139-63.compute-1.amazonaws.com:8080/login?username=" + username + "&password=" + password;
+        String URL = "http://ec2-184-72-139-63.compute-1.amazonaws.com:8080/login?username=" + username + "&password=" + hashPassword;
         
         //Send HTTP GET request
         HttpResponse response = null;
