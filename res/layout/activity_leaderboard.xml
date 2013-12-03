@@ -12,6 +12,13 @@
         android:layout_gravity="center_horizontal"
         android:text="Leaderboard"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username          Total Points         Win/Lose"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ListView
         android:id="@+id/scores"
