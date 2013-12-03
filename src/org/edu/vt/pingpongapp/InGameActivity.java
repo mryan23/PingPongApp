@@ -58,7 +58,7 @@ public class InGameActivity extends Activity {
                  {
                  	udp_.setParams(-(event.getX() - midX)/xdivide, (-event.getY() + midY)/ydivide);
                  }
-                 text.setText("Sent: " + message_);
+                 //text.setText("Sent: " + message_);
                  return true;
         	}
         });
