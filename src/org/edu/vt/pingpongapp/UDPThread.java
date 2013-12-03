@@ -47,6 +47,7 @@ public class UDPThread extends AsyncTask<Void, Void, Void> {
 		}
 		while (true) {
 			if (this.isCancelled()) {
+				s.close();
 				break;
 			}
 			if (curX != lastX && curY != lastY) {
