@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.GridView;
 
 public class Leaderboard extends Activity{
 	
-	private ListView myScoreList_ = null;
+	private GridView myScoreList_ = null;
 	private ArrayList<String> scores_;
 	private ArrayAdapter<String> adapter_;
 	private Button updateButton_;
@@ -25,7 +25,7 @@ public class Leaderboard extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_leaderboard);
 		
-		myScoreList_ = (ListView) findViewById(R.id.scores);
+		myScoreList_ = (GridView) findViewById(R.id.scores);
 		scores_ = new ArrayList<String>();
 		adapter_ = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scores_);
 		myScoreList_.setAdapter(adapter_);
@@ -61,7 +61,9 @@ public class Leaderboard extends Activity{
 		while (itr.hasNext()) {
 			String curString = itr.next();
 			if (curString != null && curString != "") {
-				scores_.add(curString);
+				String[] strs = curString.split(" ");
+				for(String s:strs)
+					scores_.add(s);
 			}
 		}
 		
